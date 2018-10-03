@@ -19,6 +19,7 @@
 		22F1C91F1BB1FD6A008FDFFB /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F1C91E1BB1FD6A008FDFFB /* Error.swift */; };
 		92DF450C1C80F7970064E606 /* Turbolinks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC167EF1B55A14900AA6F43 /* Turbolinks.framework */; };
 		92DF45131C80FA190064E606 /* ScriptMessageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF45121C80FA190064E606 /* ScriptMessageTest.swift */; };
+		9F6B9F562164063F00EE7466 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6B9F552164063F00EE7466 /* TriangleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		92DF45071C80F7970064E606 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DF450B1C80F7970064E606 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92DF45121C80FA190064E606 /* ScriptMessageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptMessageTest.swift; sourceTree = "<group>"; };
+		9F6B9F552164063F00EE7466 /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 		1FC167F11B55A14900AA6F43 /* Turbolinks */ = {
 			isa = PBXGroup;
 			children = (
+				9F6B9F552164063F00EE7466 /* TriangleView.swift */,
 				22C81A1C1BA72CDA00E47138 /* Action.swift */,
 				22F1C91E1BB1FD6A008FDFFB /* Error.swift */,
 				22960AAA1B9F51E100AA144A /* ScriptMessage.swift */,
@@ -233,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F6B9F562164063F00EE7466 /* TriangleView.swift in Sources */,
 				2286D72F1C81FCF500E34B1D /* VisitableView.swift in Sources */,
 				22960AAB1B9F51E100AA144A /* ScriptMessage.swift in Sources */,
 				2286D75A1C83F7C600E34B1D /* VisitableViewController.swift in Sources */,

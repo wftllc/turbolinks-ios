@@ -9,6 +9,7 @@ public protocol VisitableDelegate: class {
 }
 
 public protocol Visitable: class {
+    var debugFlag: Bool? { get set }
     var visitableDelegate: VisitableDelegate? { get set } 
     var visitableView: VisitableView! { get }
     var visitableURL: URL! { get }
@@ -46,6 +47,9 @@ extension Visitable {
 
     func updateVisitableScreenshot() {
         visitableView.updateScreenshot()
+        if debugFlag ?? false {
+            visitableView.updateScreenshotFlag()
+        }
     }
 
     func showVisitableScreenshot() {
@@ -58,6 +62,9 @@ extension Visitable {
 
     func clearVisitableScreenshot() {
         visitableView.clearScreenshot()
+        if debugFlag ?? false {
+            visitableView.clearScreenshotFlag()
+        }
     }
 
     func visitableWillRefresh() {

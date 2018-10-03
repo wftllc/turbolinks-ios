@@ -1,6 +1,8 @@
 import WebKit
+import UIKit
 
 open class VisitableView: UIView {
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
@@ -123,6 +125,7 @@ open class VisitableView: UIView {
     }()
 
     private var screenshotView: UIView?
+    private var triangleView: UIView?
 
     var isShowingScreenshot: Bool {
         return screenshotContainerView.superview != nil
@@ -144,6 +147,22 @@ open class VisitableView: UIView {
 
         screenshotView = screenshot
     }
+    
+    open func updateScreenshotFlag() {
+        triangleView?.removeFromSuperview()
+        let triangle = TriangleView(frame: .zero)
+        screenshotContainerView.addSubview(triangle)
+        
+        triangle.translatesAutoresizingMaskIntoConstraints = false
+        screenshotContainerView.addConstraints([
+            NSLayoutConstraint(item: triangle, attribute: .top, relatedBy: .equal, toItem: screenshotContainerView, attribute: .top, multiplier: 1, constant: UIApplication.shared.statusBarFrame.height + 44),
+            NSLayoutConstraint(item: triangle, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100),
+            NSLayoutConstraint(item: triangle, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100),
+            NSLayoutConstraint(item: triangle, attribute: .right, relatedBy: .equal, toItem: screenshotContainerView, attribute: .right, multiplier: 1, constant: 0)
+            ])
+        
+        triangleView = triangle
+    }
 
     open func showScreenshot() {
         if !isShowingScreenshot && !isRefreshing {
@@ -160,6 +179,10 @@ open class VisitableView: UIView {
 
     open func clearScreenshot() {
         screenshotView?.removeFromSuperview()
+    }
+    
+    open func clearScreenshotFlag() {
+        triangleView?.removeFromSuperview()
     }
 
 
