@@ -38,7 +38,7 @@ open class Session: NSObject {
 	fileprivate var refreshing = false
 	
 	public init(webViewConfiguration: WKWebViewConfiguration) {
-		_webView = WebView(configuration: webViewConfiguration)
+		_webView = DebugWebView(configuration: webViewConfiguration)
 		super.init()
 		_webView.delegate = self
 	}
@@ -137,26 +137,34 @@ open class Session: NSObject {
 }
 
 extension Session: VisitDelegate {
+	private func logFunctionVisit(function: String, visit: Visit) {
+		(visit.webView as? DebugWebView)?.debug(function: function, visit: visit)
+	}
+
 	func visitRequestDidStart(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		delegate?.sessionDidStartRequest(self)
 	}
 	
 	func visitRequestDidFinish(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		delegate?.sessionDidFinishRequest(self)
 	}
 	
 	func visit(_ visit: Visit, requestDidFailWithError error: NSError) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit, error)
 		delegate?.session(self, didFailRequestForVisitable: visit.visitable, withError: error)
 	}
 	
 	func visitDidInitializeWebView(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		initialized = true
 		delegate?.sessionDidLoadWebView(self)
@@ -164,6 +172,7 @@ extension Session: VisitDelegate {
 	
 	func visitWillStart(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		visit.visitable.showVisitableScreenshot()
 		activateVisitable(visit.visitable)
@@ -171,6 +180,7 @@ extension Session: VisitDelegate {
 	
 	func visitDidStart(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		if !visit.hasCachedSnapshot {
 			visit.visitable.showVisitableActivityIndicator()
@@ -179,6 +189,7 @@ extension Session: VisitDelegate {
 	
 	func visitWillLoadResponse(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		visit.visitable.updateVisitableScreenshot()
 		visit.visitable.showVisitableScreenshot()
@@ -186,6 +197,7 @@ extension Session: VisitDelegate {
 	
 	func visitDidRender(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		visit.visitable.hideVisitableScreenshot()
 		visit.visitable.hideVisitableActivityIndicator()
@@ -194,6 +206,7 @@ extension Session: VisitDelegate {
 	
 	func visitDidComplete(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		if let restorationIdentifier = visit.restorationIdentifier {
 			storeRestorationIdentifier(restorationIdentifier, forVisitable: visit.visitable)
@@ -202,6 +215,7 @@ extension Session: VisitDelegate {
 	
 	func visitDidFail(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		visit.visitable.clearVisitableScreenshot()
 		visit.visitable.showVisitableScreenshot()
@@ -209,6 +223,7 @@ extension Session: VisitDelegate {
 	
 	func visitDidFinish(_ visit: Visit) {
 		Logger.log(function: #function, visit: visit)
+		logFunctionVisit(function: #function, visit: visit)
 		print(#function, visit)
 		if refreshing {
 			refreshing = false

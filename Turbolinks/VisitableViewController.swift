@@ -15,7 +15,7 @@ open class VisitableViewController: UIViewController, Visitable {
     // MARK: Visitable View
 
     open private(set) lazy var visitableView: VisitableView! = {
-        let view = VisitableView(frame: CGRect.zero)
+        let view = DebugVisitableView(frame: CGRect.zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

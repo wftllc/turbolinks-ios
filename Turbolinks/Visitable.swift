@@ -47,9 +47,6 @@ extension Visitable {
 
     func updateVisitableScreenshot() {
         visitableView.updateScreenshot()
-        if debugFlag ?? false {
-            visitableView.updateScreenshotFlag()
-        }
     }
 
     func showVisitableScreenshot() {
@@ -62,9 +59,6 @@ extension Visitable {
 
     func clearVisitableScreenshot() {
         visitableView.clearScreenshot()
-        if debugFlag ?? false {
-            visitableView.clearScreenshotFlag()
-        }
     }
 
     func visitableWillRefresh() {
