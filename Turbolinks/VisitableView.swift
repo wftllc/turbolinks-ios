@@ -62,6 +62,7 @@ open class VisitableView: UIView {
 	func initialize() {
 		installHiddenScrollView()
 		installActivityIndicatorView()
+		Logger.log(visitableView: self, function: #function)
 	}
 	
 	
@@ -73,7 +74,7 @@ open class VisitableView: UIView {
 			updateContentInsets()
 		}
 	}
-	private weak var visitable: Visitable?
+	private(set) weak var visitable: Visitable?
 	
 	open func activateWebView(_ webView: WKWebView, forVisitable visitable: Visitable) {
 		print(#function)
@@ -83,6 +84,7 @@ open class VisitableView: UIView {
 		addFillConstraints(forView: webView)
 		installRefreshControl()
 		showOrHideWebView()
+		Logger.log(visitableView: self, function: #function)
 	}
 	
 	open func deactivateWebView() {
@@ -91,11 +93,13 @@ open class VisitableView: UIView {
 		webView?.removeFromSuperview()
 		webView = nil
 		visitable = nil
+		Logger.log(visitableView: self, function: #function)
 	}
 	
 	private func showOrHideWebView() {
 		webView?.isHidden = isShowingScreenshot
 		print(#function, webView?.isHidden == .some(false) ? "shown" : "hidden")
+		Logger.log(visitableView: self, function: #function)
 	}
 	
 	
@@ -204,19 +208,21 @@ open class VisitableView: UIView {
 			addFillConstraints(forView: screenshotContainerView)
 			showOrHideWebView()
 		}
+		Logger.log(visitableView: self, function: #function)
 	}
 	
 	open func hideScreenshot() {
 		print(#function)
+		
 		screenshotContainerView.removeFromSuperview()
 		showOrHideWebView()
+		Logger.log(visitableView: self, function: #function)
 	}
 	
 	open func clearScreenshot() {
 		print(#function)
 		screenshotView?.removeFromSuperview()
 	}
-	
 	
 	// MARK: Hidden Scroll View
 	

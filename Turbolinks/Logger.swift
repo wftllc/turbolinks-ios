@@ -8,13 +8,48 @@
 import Foundation
 import os //logging
 
-class Logger {
+open class Logger {
 	
-	static let subsystem: String = "com.goldbelly.turbolinks"
-	static let visitLog = OSLog(subsystem: subsystem, category: "visit")
-	static let jsLog = OSLog(subsystem: subsystem, category: "js")
-	static let webviewLog = OSLog(subsystem: subsystem, category: "webview")
+	static let baseSubsystem: String = "com.goldbelly"
+	static let appLog = OSLog(subsystem: baseSubsystem, category: "app")
+	static let screenLog = OSLog(subsystem: baseSubsystem, category: "screen")
 
+	static let turbolinksSubsystem: String = "com.goldbelly.turbolinks"
+	static let visitableViewLog = OSLog(subsystem: turbolinksSubsystem, category: "visitableView")
+	static let visitLog = OSLog(subsystem: turbolinksSubsystem, category: "visit")
+	static let jsLog = OSLog(subsystem: turbolinksSubsystem, category: "js")
+	static let webviewLog = OSLog(subsystem: turbolinksSubsystem, category: "webview")
+
+	open class func logApp(function: String, message: String = "") {
+		let format:StaticString = "%@: %@"
+		os_log(format, log: appLog, type: .debug, function, message)
+	}
+	
+	open class func logApp(screen: String, function: String, message: String = "") {
+		let format:StaticString = "%@: %@, %@"
+		os_log(format, log: screenLog, type: .debug, screen, function, message)
+	}
+	
+	class func log(visitableView: VisitableView, function: String, message: String = "") {
+		var isWebViewVisible = false
+		var url: String = visitableView.visitable?.visitableURL.absoluteString ?? "<blank>"
+		if let webview = visitableView.webView as? WebView, webview.isHidden == .some(false) {
+			isWebViewVisible = true
+		}
+		let isScreenshotVisible = visitableView.isShowingScreenshot
+		
+		let format:StaticString = "%s, %s: webViewVisible: %s, screenshotVisible: %s; %s"
+		os_log(format,
+					 log: visitableViewLog,
+					 type: .debug,
+					 url,
+					 function,
+					 isWebViewVisible ? "yes" : "no",
+					 isScreenshotVisible ? "yes" : "no",
+					 message
+		)
+	}
+	
 	class func logWebView(function: String, currentVisit: Visit?, message: String = "") {
 		let format:StaticString = "%s: %s, %s"
 		let visitState = currentVisit?.state ?? VisitState.initialized
